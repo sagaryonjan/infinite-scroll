@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 import { useEffect, useState } from 'react';
-import {getPostList, getSecondPostList} from './postList';
+import { getPostList, getSecondPostList } from './postList';
 
 const App = () => {
 
@@ -12,34 +12,32 @@ const App = () => {
     margin: 6,
     padding: 8
   };
-  
+
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [counter, setCounter] = useState(1);
 
 
   useEffect(() => {
-        setPosts(getPostList());
+    setPosts(getPostList());
   }, []);
 
   const fetchData = () => {
     setCounter(counter + 1);
-    if(counter  == 2){
+    if (counter == 2) {
       setHasMore(false);
       return;
     }
 
     setTimeout(() => {
-      setPosts([...posts,...getSecondPostList()]);
+      setPosts([...posts, ...getSecondPostList()]);
     }, 4000);
   };
-
- 
 
   return (
     <div>
       <InfiniteScroll
-        dataLength={posts?.length} //This is important field to render the next data
+        dataLength={posts?.length}
         next={fetchData}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
@@ -51,7 +49,7 @@ const App = () => {
       >
         {posts &&
           posts.map((post, index) => (
-            <div style = {style}>
+            <div style={style}>
               <h4>{post.title}</h4>
               <p>{post.description}</p>
             </div>
